@@ -17,7 +17,7 @@
                         <strong class="logo"><a href="#">sandriny stairs</a></strong>
                         <nav id="nav">
                             <ul class="main-nav">
-                                <li class="active"><a href="/index.html">Home Page</a></li>
+                                <li class="active"><a href="/index.html" class="show-modal" data-id="catalog-request">Home Page</a></li>
                                 <li><a href="/about.html">About Us</a></li>
                                 <li><a href="/contact.html">Contact</a></li>
                             </ul>
@@ -234,10 +234,10 @@
                         </div>
                     </div>
             	</div>
-                <div class="sk-spinner sk-spinner-three-bounce show">
-                    <div class="sk-bounce1"></div>
-                    <div class="sk-bounce2"></div>
-                    <div class="sk-bounce3"></div>
+                <div class="spinner">
+                    <div class="ball1"></div>
+                    <div class="ball2"></div>
+                    <div class="ball3"></div>
                     <span class="loading">Loading more...</span>
                 </div>
             </div>
@@ -249,7 +249,7 @@
     <footer id="footer">
         <div class="holder">
             <div class="hold-terms">
-                <p>&amp; 2016 Sandrini Stairs UK Ltd | All Rights Reserved. Reproduction in whole or in part without permission is prohibited. All Rights Reserved. Please read our  <a href="#">Terms & Conditions</a></p>
+                <p>&amp; 2016 Sandrini Stairs UK Ltd | All Rights Reserved. Reproduction in whole or in part without permission is prohibited. All Rights Reserved. Please read our  <a href="#" class="show-modal" data-id="terms">Terms & Conditions</a></p>
             </div>
             <ul class="big-social">
                 <li><a href="#" class="pinterest"></a></li>
@@ -260,7 +260,7 @@
     <!-- footer  end -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-    <div class="modal">
+    <div class="modal" id="terms">
         <a href="#" class="close"></a>
         <div class="modal-header">
             <strong class="title">Terms &amp; Conditions</strong>
@@ -273,7 +273,7 @@
             Si tratta di un’informativa per il trattamento dei dati personali che è resa anche ai sensi dell’art. 13 Decreto legislativo 196/03 (di seguito Codice privacy) per gli utenti dei servizi del nostro sito, che vengono erogati via internet.</p>
         </div>
     </div>
-    <div class="modal show">
+    <div class="modal" id="catalog-request">
         <a href="#" class="close"></a>
         <div class="modal-header">
             <strong class="title">Digital Catalogue Request</strong>
@@ -282,28 +282,30 @@
             <div class="hold-form">
                 <form>
                     <fieldset>
-                        <div class="element-form-box">
-                            <div class="item">
-                                <label for="name">Full Name</label>
-                                <input id="name" type="text" name="name">
+                        <div class="wrap">
+                            <div class="element-form-box">
+                                <div class="item">
+                                    <label for="name">Full Name</label>
+                                    <input id="name" type="text" name="name">
+                                </div>
+                                <div class="item">
+                                    <label for="email">Email Address</label>
+                                    <input id="email" type="text" name="email">
+                                </div>
+                                <div class="item">
+                                    <label>Message</label>
+                                    <textarea name="message"></textarea>
+                                </div>
                             </div>
-                            <div class="item">
-                                <label>Message</label>
-                                <textarea name="message"></textarea>
-                            </div>
-                            <div class="item">
-                                <label for="email">Email Address</label>
-                                <input id="email" type="text" name="email">
-                            </div>
-                            <div class="hold-checkbox">
-                                <label for="check">
-                                    <input type="checkbox" id="check">
-                                    Accept privacy conditions (to exercise rights under Art. 7 D . Lgs 196/2003.)
-                                </label>
+                            <div class="hold-img">
+                                <img src="img/img05.jpg" alt="img">
                             </div>
                         </div>
-                        <div class="hold-img">
-                            <img src="img/img05.jpg" alt="img">
+                        <div class="hold-checkbox">
+                            <label>
+                                <input type="checkbox" >
+                                <span>Accept privacy conditions (to exercise rights under Art. 7 D . Lgs 196/2003.)</span>
+                            </label>
                         </div>
                         <div class="hold-btn">
                             <button type="submit">Send</button>

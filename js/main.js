@@ -1,5 +1,4 @@
-'use strict';
-$(document).ready(function() {
+$(window).load(function() {
 	SandrinyApp.init();
 });
 
@@ -9,69 +8,178 @@ var SandrinyApp = {
 
 		this.showSocial();
 		this.showModal();
-		this.scrollLoad();
-		this.smoothShow();
+		//this.scrollLoad();
+		//this.smoothShow();
+		this.viewImage();
+		this.formSubmit();
+		this.mobileMenu();
 
 	},
+
 	/* show/hide social icons in model */
 	showSocial: function() {
-		let holder = $('.social-box');
+		var holder = $('.social-box');
 
 		holder.each(function() {
-			let box = $(this);
-
+			var box = $(this);
 			box.click(function(){
 				$(this).toggleClass('open');
 			});
 		})
 	},
+
 	/* show/hide modal */
 	showModal: function() {
 
-		let modalBtn = $('.show-modal'),
+		var modalBtn = $('.show-modal'),
 			modal = null,
+			image = null,
 			closeModal = null;
 
 		modalBtn.click(function() {
-			let data = $(this).data('id');
+			var data = $(this).data('id');
+			image = $(this).parents('.box-item').find('.hold-img > img').attr('src');
 			modal = $('#'+data).addClass('show');
+			modal.find('.hold-img > img').attr('src', image);
 			closeModal = modal.find('.close');
 
 			closeModal.click(function(){
 				modal.removeClass('show');
-			})
+				return false;
+			});
 
 			return false;
 		});
 	},
+
+	/* show modal with image */
+	viewImage: function() {
+		var link = $('.box-item > .hold-img'),
+			modal = $('#full-img'),
+			close = modal.find('.close'),
+			image = null;
+
+		link.click(function(){
+			image = $(this).find('img').attr('src');
+			modal.find('img').attr('src', image);
+			modal.addClass('show');
+
+			close.click(function(){
+				modal.removeClass('show');
+				return false;
+			});
+
+			return false;
+		});
+	},
+
 	/* load models when scrolling page */
 	scrollLoad: function() {
-		let spinner = $('.spinner');
+		var spinner = $('.spinner'),
+			_this = this;
 
 		$(window).scroll(function() {
 		    if($(window).scrollTop() == $(document).height() - $(window).height()) {
-		           //spinner.addClass('show');
-		           $.getJSON('stairs.json', function(data){
-		           		console.log(data);
+		           $.getJSON('json/stairs.json', function(data){
+		           		spinner.addClass('show');
+		           		addNewItems(data);
+		           		_this.smoothShow();
+		           		_this.showSocial();
+		           		_this.showModal();
 		           });
 		    }else {
 		    	//spinner.removeClass('show');
 		    }
 		});
 
+		/* better using templates like Handlebars, LoDash etc.*/
+		function addNewItems(data) {
+			var container = $('.main-box'),
+				item = null;
+
+				for (var obj in data) {
+
+					if(data.hasOwnProperty(obj) ) {
+						item = '<div class="box-item">'+
+			                        '<div class="social-box">'+
+			                            '<ul class="social-list">'+
+			                                '<li><a href="#" class="pinterest"></a></li>'+
+			                                '<li><a href="#" class="instagram"></a></li>'+
+			                            '</ul>'+
+			                        '</div>'+
+			            			'<a href="#" class="hold-img">'+
+			                            '<span class="overlay"></span>'+
+			                            '<span class="eye"></span>'+
+			            				'<img src="'+data[obj].image+'" alt="img">'+
+			            			'</a>'+
+			            			'<div class="description">'+
+			            				'<strong class="title">'+data[obj].title+'</strong>'+
+			            				'<p>'+data[obj].description+'</p>'+
+			            				'<a href="#" class="show-modal" data-id="catalog-request"></a>'+
+			            			'</div>'+
+			            		'</div>';
+
+		            container.append(item);
+
+					}
+					
+				}
+		}
+
 	},
 
 	smoothShow: function() {
-		let box = $('.box-item');
+		var box = $('.box-item:not(show)');
 
-		for (let i = 0; i < box.length; i++) {
+		for (var i = 0; i < box.length; i++) {
+			console.log(i);
 			setTimeout(function(){
 				$(box[i]).addClass('show');
-			}, 300*i);
+			}, 300 * i);
 		}
+	},
+
+	/* validate and submiting form */
+	formSubmit: function() {
+
+		$('#request-catalog').validate({
+			rules: {
+			    name: "required",
+			    message: "required",
+			    privacy: "required",
+			    email: {
+			      	required: true,
+			      	email: true
+			    }
+			},
+
+			messages: {
+	            name: "Please enter your full name",
+	            message: "Please enter your message",
+	            email: "Please enter a valid email address",
+	            privacy: "Please accept privacy conditions"
+	        },
+
+	        submitHandler: function(form) {
+	            form.submit();
+	        }
+
+		});
+
+	},
+
+	mobileMenu: function() {
+		var header = $('#header'),
+			btn = header.find('.toggle-menu'),
+			menu = header.find('#nav');
+
+		btn.click(function() {
+			$(this).toggleClass('active');
+			header.toggleClass('open');
+
+			return false;
+		});
 	}
-
-
 
 
 }

@@ -9,7 +9,7 @@ var SandrinyApp = {
 		this.showSocial();
 		this.showModal();
 		//this.scrollLoad();
-		//this.smoothShow();
+		this.smoothShow();
 		this.viewImage();
 		this.formSubmit();
 		this.mobileMenu();
@@ -37,6 +37,7 @@ var SandrinyApp = {
 			closeModal = null;
 
 		modalBtn.click(function() {
+			$('.modal').removeClass('show');
 			var data = $(this).data('id');
 			image = $(this).parents('.box-item').find('.hold-img > img').attr('src');
 			modal = $('#'+data).addClass('show');
@@ -60,6 +61,7 @@ var SandrinyApp = {
 			image = null;
 
 		link.click(function(){
+			$('.modal').removeClass('show');
 			image = $(this).find('img').attr('src');
 			modal.find('img').attr('src', image);
 			modal.addClass('show');
@@ -132,17 +134,17 @@ var SandrinyApp = {
 		var box = $('.box-item:not(show)');
 
 		for (var i = 0; i < box.length; i++) {
-			console.log(i);
-			setTimeout(function(){
-				$(box[i]).addClass('show');
-			}, 300 * i);
+
+			(function(index) {
+		        setTimeout(function() { $(box[index]).addClass('show'); }, i * 200);
+		    })(i);
 		}
 	},
 
 	/* validate and submiting form */
 	formSubmit: function() {
 
-		$('#request-catalog').validate({
+		$('#contact-form').validate({
 			rules: {
 			    name: "required",
 			    message: "required",

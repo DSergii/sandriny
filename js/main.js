@@ -12,6 +12,7 @@ var SandrinyApp = {
 		this.smoothShow();
 		this.viewImage();
 		this.mobileMenu();
+		this.form = $( "#contact-form" );
 		this.validRules = {
 			rules: {
 			    name: "required",
@@ -28,13 +29,34 @@ var SandrinyApp = {
 	            message: "Please enter your message",
 	            email: "Please enter a valid email address",
 	            privacy: "Please accept privacy conditions"
-	        },
-
-	        submitHandler: function(form) {
-	            form.submit();
 	        }
+
 		};
-		this.validator = $( "#contact-form" ).validate(this.validRules);
+		this.validator = this.form.validate(this.validRules);
+		this.formSubmit();
+	},
+
+	formSubmit: function() {
+		var _this = this;
+		var submitBtn = $('#catalog-request button');
+
+		submitBtn.click(function() {
+
+			if(_this.form.valid()){
+
+				$.ajax({
+				  type: "POST",
+				  url: 'submit.php',
+				  data: _this.form.serialize(),
+				  success: function(data){
+				  		
+
+				  }
+				});
+
+			}
+		});
+
 	},
 
 	/* show/hide social icons in model */

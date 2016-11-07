@@ -888,7 +888,7 @@ h4{
 	height: 100%;
 }
 
-button[type="submit"] {
+#catalog-request button {
 	width: 114px;
 	background: #dbc974;
 	font: 13px/15px 'montserratregular', tahoma, helvetica, sans-serif;

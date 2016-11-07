@@ -11,9 +11,30 @@ var SandrinyApp = {
 		//this.scrollLoad();
 		this.smoothShow();
 		this.viewImage();
-		this.formSubmit();
 		this.mobileMenu();
+		this.validRules = {
+			rules: {
+			    name: "required",
+			    message: "required",
+			    privacy: "required",
+			    email: {
+			      	required: true,
+			      	email: true
+			    }
+			},
 
+			messages: {
+	            name: "Please enter your full name",
+	            message: "Please enter your message",
+	            email: "Please enter a valid email address",
+	            privacy: "Please accept privacy conditions"
+	        },
+
+	        submitHandler: function(form) {
+	            form.submit();
+	        }
+		};
+		this.validator = $( "#contact-form" ).validate(this.validRules);
 	},
 
 	/* show/hide social icons in model */
@@ -30,7 +51,7 @@ var SandrinyApp = {
 
 	/* show/hide modal */
 	showModal: function() {
-
+		var _this = this;
 		var modalBtn = $('.show-modal'),
 			modal = null,
 			image = null,
@@ -46,6 +67,7 @@ var SandrinyApp = {
 
 			closeModal.click(function(){
 				modal.removeClass('show');
+				_this.validator.resetForm();
 				return false;
 			});
 
@@ -139,35 +161,6 @@ var SandrinyApp = {
 		        setTimeout(function() { $(box[index]).addClass('show'); }, i * 200);
 		    })(i);
 		}
-	},
-
-	/* validate and submiting form */
-	formSubmit: function() {
-
-		$('#contact-form').validate({
-			rules: {
-			    name: "required",
-			    message: "required",
-			    privacy: "required",
-			    email: {
-			      	required: true,
-			      	email: true
-			    }
-			},
-
-			messages: {
-	            name: "Please enter your full name",
-	            message: "Please enter your message",
-	            email: "Please enter a valid email address",
-	            privacy: "Please accept privacy conditions"
-	        },
-
-	        submitHandler: function(form) {
-	            form.submit();
-	        }
-
-		});
-
 	},
 
 	mobileMenu: function() {

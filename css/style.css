@@ -865,7 +865,7 @@ h4{
 	margin: 0;
 }
 
-.hold-form textarea + label.error{bottom: -22px;}
+.hold-form textarea + label.error{top: 13px;}
 
 .hold-form .wrap{
 	overflow: hidden;
@@ -1333,7 +1333,7 @@ button[type="submit"]:hover{
 	}
 	.hold-form label{margin-bottom: 5px;}
 	.element-form-box .item:last-child label {
-	    margin-bottom: 5px;
+	    margin-bottom: 12px;
 	}
 	#contact-form .hold-img{
 		margin-bottom: 12px;
@@ -1347,7 +1347,7 @@ button[type="submit"]:hover{
     	height: 115px;
 	}
 	.description-box{padding: 30px 15px 25px;}
-	.hold-form textarea + label.error {bottom: -15px;}
+	.hold-form textarea + label.error {top: 12px;}
 	.contact-box{top: 75%;}
 	#footer .holder {padding: 0 9px;}
 }

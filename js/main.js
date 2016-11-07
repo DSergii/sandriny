@@ -34,29 +34,40 @@ var SandrinyApp = {
 		};
 		this.validator = this.form.validate(this.validRules);
 		this.formSubmit();
+		this.clearForm();
 	},
 
 	formSubmit: function() {
-		var _this = this;
-		var submitBtn = $('#catalog-request button');
+		var _this = this,
+			modal = $('#catalog-request'),
+			submitBtn = modal.find('button');
 
 		submitBtn.click(function() {
 
 			if(_this.form.valid()){
 
 				$.ajax({
-				  type: "POST",
-				  url: 'submit.php',
-				  data: _this.form.serialize(),
-				  success: function(data){
-				  		
-
-				  }
+					type: "POST",
+					url: 'submit.php',
+					data: _this.form.serialize(),
+					success: function(data){
+					  		modal.addClass('success');
+					  		setTimeout(function(){
+					  			modal.removeClass('show');
+					  		}, 2000);
+					  		setTimeout(function(){
+					  			modal.removeClass('success');
+					  		}, 2500);
+					 		_this.clearForm();
+					}
 				});
-
 			}
 		});
 
+	},
+
+	clearForm: function() {
+		$( "#contact-form" )[0].reset();
 	},
 
 	/* show/hide social icons in model */
@@ -90,6 +101,7 @@ var SandrinyApp = {
 			closeModal.click(function(){
 				modal.removeClass('show');
 				_this.validator.resetForm();
+				_this.clearForm();
 				return false;
 			});
 

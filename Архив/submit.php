@@ -1,10 +1,10 @@
 ﻿<?php 
 // $to - кому отправляем 
-$to = 'info@2evolution.it';
+$to = 'info@sandrinistrairs.com';
 // $from - от кого 
 $from='info@2evolution.it'; 
 // $title - Заголовок письма
-$title = "Title";
+$title = "Feedback form";
 // $success - Сообщение при успешной отправке
 $success = "Message success";
 // $success - Сообщение при НЕ успешной отправке

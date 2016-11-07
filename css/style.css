@@ -788,6 +788,18 @@ h4{
 	padding: 4px 6px;
 }
 
+.modal .success{display: none;}
+.modal .success strong{
+	color: #fff;
+	font: 40px/45px 'montserratregular', tahoma, helvetica, sans-serif;
+	display: block;
+	text-align: center;
+}
+.modal.success .success{display: block;}
+
+.modal.success .modal-body,
+.modal.success .modal-header{display: none;}
+
 #full-img {
 	padding: 0;
 	width: 676px;
@@ -1275,7 +1287,10 @@ button[type="submit"]:hover{
 	}
 	.box .address:before,
 	.box .phone:before{left: -12px;}
-
+	.modal .success strong{
+		font-size: 26px;
+		line-height: 30px;
+	}
 }
 
 @media (max-width: 400px) {

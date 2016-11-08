@@ -788,17 +788,22 @@ h4{
 	padding: 4px 6px;
 }
 
-.modal .success{display: none;}
-.modal .success strong{
+.modal .success,
+.contact-box .success{display: none;}
+.modal .success strong,
+.contact-box .success strong{
 	color: #fff;
 	font: 40px/45px 'montserratregular', tahoma, helvetica, sans-serif;
 	display: block;
 	text-align: center;
 }
-.modal.success .success{display: block;}
+.contact-box .success strong{color: #2d3030;}
+.modal.success .success,
+.contact-box.success .success{display: block;}
 
 .modal.success .modal-body,
-.modal.success .modal-header{display: none;}
+.modal.success .modal-header,
+.contact-box.success form{display: none;}
 
 #full-img {
 	padding: 0;
@@ -900,7 +905,8 @@ h4{
 	height: 100%;
 }
 
-#catalog-request button {
+#catalog-request button,
+.contact-box button{
 	width: 114px;
 	background: #dbc974;
 	font: 13px/15px 'montserratregular', tahoma, helvetica, sans-serif;

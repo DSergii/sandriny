@@ -39,8 +39,8 @@ var SandrinyApp = {
 
 	formSubmit: function() {
 		var _this = this,
-			modal = $('#catalog-request'),
-			submitBtn = modal.find('button');
+			formBox = $('#catalog-request, .contact-box'),
+			submitBtn = formBox.find('button');
 
 		submitBtn.click(function() {
 
@@ -51,12 +51,12 @@ var SandrinyApp = {
 					url: 'submit.php',
 					data: _this.form.serialize(),
 					success: function(data){
-					  		modal.addClass('success');
+					  		formBox.addClass('success');
 					  		setTimeout(function(){
-					  			modal.removeClass('show');
+					  			formBox.removeClass('show');
 					  		}, 2000);
 					  		setTimeout(function(){
-					  			modal.removeClass('success');
+					  			formBox.removeClass('success');
 					  		}, 2500);
 					 		_this.clearForm();
 					}

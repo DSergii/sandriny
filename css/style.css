@@ -311,7 +311,7 @@ figure{margin: 0;}
 	-webkit-transition: -webkit-transform 2.3s linear;
 	transition: -webkit-transform 2.3s linear;
 	transition: transform 2.3s linear;
-	transition: transform 2.3s linear, -webkit-transform 2.3s linear;
+	transition: transform 2.3s linear,-webkit-transform 2.3s linear;
 }
 
 .box-item .hold-img:hover img{
@@ -332,12 +332,30 @@ figure{margin: 0;}
 .description .show-modal {
 	font-size: 0;
 	position: absolute;
-	right: 20px;
-	bottom: 8px;
-	background: url(../img/sprite.png) no-repeat -86px -25px;
+	right: 47px;
+	bottom: 38px;
+}
+.description .show-modal:before,
+.description .show-modal:after{
+	content: '';
+	position: absolute;
+	background: url(../img/sprite.png) no-repeat -4px -121px;
 	width: 35px;
 	height: 27px;
+	opacity: 0;
+	-webkit-transition: opacity .3s linear;
+	transition: opacity .3s linear;
 }
+.description .show-modal:before{
+	background-position: -86px -25px;
+	opacity: 1;
+}
+
+.description .show-modal:hover:before{
+	opacity: 0;
+}
+
+.description .show-modal:hover:after{opacity: 1;}
 
 .description .title{
 	font: 20px/22px 'montserratregular', tahoma, helvetica, sans-serif;

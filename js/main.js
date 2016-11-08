@@ -8,7 +8,7 @@ var SandrinyApp = {
 
 		this.showSocial();
 		this.showModal();
-		//this.scrollLoad();
+		this.scrollLoad();
 		this.smoothShow();
 		this.viewImage();
 		this.mobileMenu();
@@ -138,13 +138,26 @@ var SandrinyApp = {
 
 		$(window).scroll(function() {
 		    if($(window).scrollTop() == $(document).height() - $(window).height()) {
-		           $.getJSON('json/stairs.json', function(data){
-		           		spinner.addClass('show');
-		           		addNewItems(data);
-		           		_this.smoothShow();
-		           		_this.showSocial();
-		           		_this.showModal();
-		           });
+		           // $.getJSON('json/stairs.json', function(data){
+		           // 		spinner.addClass('show');
+		           // 		addNewItems(data);
+		           // 		_this.smoothShow();
+		           // 		_this.showSocial();
+		           // 		_this.showModal();
+		           // });
+		           console.info(100);
+		           $.ajax({
+					  	url: "dbConfig.php",
+					  	method: "GET",
+					  	dataType: "json",
+					  	beforeSend:function(html){
+		                    // активируем прелоадер
+		                    spinner.addClass('show');
+		                },
+					  	success: function(data){
+					  		console.info(data);
+					  }
+					});
 		    }else {
 		    	//spinner.removeClass('show');
 		    }

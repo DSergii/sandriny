@@ -6,9 +6,12 @@ var SandrinyApp = {
 
 	init: function(){
 
+		this.header = $('#header');
 		this.showSocial();
 		this.showModal();
+		this.loadContent();
 		this.scrollLoad();
+		this.addNewItems();
 		this.smoothShow();
 		this.viewImage();
 		this.mobileMenu();
@@ -35,6 +38,7 @@ var SandrinyApp = {
 		this.validator = this.form.validate(this.validRules);
 		this.formSubmit();
 		this.clearForm();
+		this.stickyMenu();
 	},
 
 	formSubmit: function() {
@@ -76,7 +80,7 @@ var SandrinyApp = {
 
 		holder.each(function() {
 			var box = $(this);
-			box.click(function(){
+			box.unbind('click').bind('click', function(){
 				$(this).toggleClass('open');
 			});
 		})
@@ -131,72 +135,100 @@ var SandrinyApp = {
 		});
 	},
 
+	loadContent: function() {
+		var _this = this;
+		 $.ajax({
+		  	url: "dbConfig.php",
+		  	method: "POST",
+		  	data: {start: 1, limit:12},
+		  	dataType: "json",
+		  	success: function(data){
+		  		_this.addNewItems(data);
+		  		_this.smoothShow();
+		  	}
+		});
+	},
+
 	/* load models when scrolling page */
 	scrollLoad: function() {
 		var spinner = $('.spinner'),
+			complete = $('.complete'),
+			flag = true,
+			start = 13,
 			_this = this;
 
 		$(window).scroll(function() {
+			if( $(window).scrollTop() > _this.header.outerHeight() ) {
+				_this.stickyMenu(true);
+			}else{
+				_this.stickyMenu(false);
+			}
 		    if($(window).scrollTop() == $(document).height() - $(window).height()) {
-		           // $.getJSON('json/stairs.json', function(data){
-		           // 		spinner.addClass('show');
-		           // 		addNewItems(data);
-		           // 		_this.smoothShow();
-		           // 		_this.showSocial();
-		           // 		_this.showModal();
-		           // });
-		           console.info(100);
+
 		           $.ajax({
 					  	url: "dbConfig.php",
-					  	method: "GET",
+					  	method: "POST",
+					  	data: {start: start, limit:12},
 					  	dataType: "json",
-					  	beforeSend:function(html){
-		                    // активируем прелоадер
-		                    spinner.addClass('show');
+					  	beforeSend:function(){
+					  		if(flag){
+					  			spinner.addClass('show');
+					  		}
 		                },
 					  	success: function(data){
-					  		console.info(data);
-					  }
+					  		if(data === null){
+					  			complete.addClass('show');
+					  			flag = false;
+					  		}
+					  		_this.addNewItems(data);
+					  		spinner.removeClass('show');
+					  		_this.smoothShow();
+					  		start += 4;
+					  	}
 					});
 		    }else {
-		    	//spinner.removeClass('show');
+		    	
 		    }
 		});
+	},
 
-		/* better using templates like Handlebars, LoDash etc.*/
-		function addNewItems(data) {
-			var container = $('.main-box'),
-				item = null;
+	/* better using templates like Handlebars, LoDash etc.*/
+	addNewItems: function (data) {
+		var container = $('.main-box'),
+			_this = this,
+			href = window.location.href,
+			item = null;
 
-				for (var obj in data) {
+			for (var obj in data) {
 
-					if(data.hasOwnProperty(obj) ) {
-						item = '<div class="box-item">'+
-			                        '<div class="social-box">'+
-			                            '<ul class="social-list">'+
-			                                '<li><a href="#" class="pinterest"></a></li>'+
-			                                '<li><a href="#" class="instagram"></a></li>'+
-			                            '</ul>'+
-			                        '</div>'+
-			            			'<a href="#" class="hold-img">'+
-			                            '<span class="overlay"></span>'+
-			                            '<span class="eye"></span>'+
-			            				'<img src="'+data[obj].image+'" alt="img">'+
-			            			'</a>'+
-			            			'<div class="description">'+
-			            				'<strong class="title">'+data[obj].title+'</strong>'+
-			            				'<p>'+data[obj].description+'</p>'+
-			            				'<a href="#" class="show-modal" data-id="catalog-request"></a>'+
-			            			'</div>'+
-			            		'</div>';
+				if(data.hasOwnProperty(obj) ) {
+					item = '<div class="box-item">'+
+		                        '<div class="social-box">'+
+		                            '<ul class="social-list">'+
+		                                '<li><a href="http://pinterest.com/pin/create/button/?url='+href+''+data[obj].img+'&description='+data[obj].descr+'" target="_blank" class="pinterest"></a></li>'+
+		                                '<li><a href="#" class="instagram"></a></li>'+
+		                            '</ul>'+
+		                        '</div>'+
+		            			'<a href="#" class="hold-img">'+
+		                            '<span class="overlay"></span>'+
+		                            '<span class="eye"></span>'+
+		            				'<img src="'+data[obj].img+'" alt="img">'+
+		            			'</a>'+
+		            			'<div class="description">'+
+		            				'<strong class="title">'+data[obj].title+'</strong>'+
+		            				'<p>'+data[obj].descr+'</p>'+
+		            				'<a href="#" class="show-modal" data-id="catalog-request"></a>'+
+		            			'</div>'+
+		            		'</div>';
 
-		            container.append(item);
+	            container.append(item);
 
-					}
-					
 				}
-		}
-
+				
+			}
+			_this.showSocial();
+			_this.showModal();
+			_this.viewImage();
 	},
 
 	smoothShow: function() {
@@ -211,17 +243,30 @@ var SandrinyApp = {
 	},
 
 	mobileMenu: function() {
-		var header = $('#header'),
-			btn = header.find('.toggle-menu'),
-			menu = header.find('#nav');
+		var _this = this,
+			header = _this.header;
+
+		btn = header.find('.toggle-menu'),
+		menu = header.find('#nav');
 
 		btn.click(function() {
 			$(this).toggleClass('active');
-			header.toggleClass('open');
+				header.toggleClass('open');
 
 			return false;
 		});
-	}
+	},
 
+	stickyMenu: function(flag) {
+		var _this = this,
+			header = _this.header;
+
+		if(flag) {
+			header.addClass('sticky');
+		}else {
+			header.removeClass('sticky');
+		}
+		
+	}
 
 }

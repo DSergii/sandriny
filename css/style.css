@@ -100,6 +100,9 @@ fieldset {
 	width: 100%;
 	padding: 23px 0 24px;
 	border-bottom: 1px solid #e0e8eb;
+	-webkit-transition: top .3s linear;
+	transition: top .3s linear;
+	top: -86px;
 }
 #header:after{
 	content: '';
@@ -118,6 +121,16 @@ fieldset {
 	background: url(../img/logo.png) no-repeat 0 0;
 	display:block;
 }
+
+#header.sticky{
+	position: fixed;
+	z-index: 100;
+	background: #fff;
+	opacity: 1;
+	top: 0;
+}
+
+#header.sticky + #content{padding-top: 82px;}
 
 .mobile-logo{
 	display: none;
@@ -756,11 +769,19 @@ h4{
   }
 }
 
+.complete,
 .loading {
 	display: block;
 	color: #222222;
 	line-height: 18px;
 }
+
+.complete {
+	display: none;
+	text-align: center;
+    margin-bottom: 30px;
+}
+.complete.show{display: block;}
 
 .modal{
 	background: #585858;
@@ -1137,12 +1158,7 @@ button[type="submit"]:hover{
 }
 @media (max-width: 720px) {
 	.header-container{padding: 0 15px;}
-	#header{
-		position: fixed;
-		z-index: 10;
-		background: #fff;
-	}
-	#content{padding-top: 82px; }
+
 	#header .logo{
 		float: none;
 		width: 282px;
@@ -1248,28 +1264,28 @@ button[type="submit"]:hover{
 @media (max-width: 425px) {
 
 	.toggle-menu {
-	    width: 38px;
-	    height: 38px;
+	    width: 32px;
+	    height: 32px;
 	}
 
 	.toggle-menu span {
 	    top: 12px;
 	    left: 0;
 	    right: 0;
-	    height: 7px;
+	    height: 6px;
 	}
 
 	.toggle-menu span::before,
 	.toggle-menu span::after {
-	    height: 7px;
+	    height: 6px;
 	}
 
 	.toggle-menu span::before {
-	    top: -12px;
+	    top: -10px;
 	}
 
 	.toggle-menu span::after {
-	    bottom: -12px;
+	    bottom: -10px;
 	}
 	.modal{
 		padding: 15px 15px 15px;

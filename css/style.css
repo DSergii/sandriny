@@ -100,9 +100,6 @@ fieldset {
 	width: 100%;
 	padding: 23px 0 24px;
 	border-bottom: 1px solid #e0e8eb;
-	-webkit-transition: top .3s linear;
-	transition: top .3s linear;
-	top: -86px;
 }
 #header:after{
 	content: '';
@@ -128,9 +125,37 @@ fieldset {
 	background: #fff;
 	opacity: 1;
 	top: 0;
+	-webkit-animation: showStickyHeader .7s infinite ease-in-out;
+    animation: showStickyHeader .7s infinite ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
 }
 
 #header.sticky + #content{padding-top: 82px;}
+#header.sticky #nav{opacity: 1 !important;}
+
+@-webkit-keyframes showStickyHeader {
+  0%{
+  	opacity: 0;
+  	top: -86px;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+  
+}
+@keyframes showStickyHeader {
+  0%{
+  	opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 .mobile-logo{
 	display: none;
@@ -1341,8 +1366,8 @@ button[type="submit"]:hover{
 
 	.toggle-menu.active{left: 282px;}
 	.toggle-menu {
-	    width: 32px;
-	    height: 32px;
+	    width: 28px;
+	    height: 28px;
 	}
 
 	.toggle-menu span {
@@ -1390,6 +1415,18 @@ button[type="submit"]:hover{
 	.element-form-box .item:last-child label {
 	    margin-bottom: 12px;
 	}
+	.toggle-menu {height: 24px;}
+	.toggle-menu span {
+	    top: 8px;
+	    height: 4px;
+	}
+
+	.toggle-menu span::before,
+	.toggle-menu span::after {height: 4px;}
+
+	.toggle-menu span::before {top: -8px;}
+
+	.toggle-menu span::after {bottom: -8px;}
 	#contact-form .hold-img{
 		margin-bottom: 12px;
 		max-width: 130px;

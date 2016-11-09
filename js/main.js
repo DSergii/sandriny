@@ -37,7 +37,6 @@ var SandrinyApp = {
 		};
 		this.validator = this.form.validate(this.validRules);
 		this.formSubmit();
-		this.clearForm();
 		this.stickyMenu();
 	},
 

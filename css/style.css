@@ -1213,7 +1213,7 @@ button[type="submit"]:hover{
 		text-align: center;
 	}
 	.hold-form textarea{max-width: 99% !important;}
-	.modal.show {top: 60%;}
+	/*.modal.show {top: 50%;}*/
 	.contact-box .hold-form{padding: 30px 15px;}
 }
 

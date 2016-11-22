@@ -113,13 +113,36 @@ var SandrinyApp = {
 	viewImage: function() {
 		var link = $('.box-item > .hold-img'),
 			modal = $('#full-img'),
+			mBody = modal.find('.modal-body'),
 			close = modal.find('.close'),
-			image = null;
+			image = null,
+			imgSrc = null,
+			content = {
+				w: $(window).width(),
+				h: $(window).height()
+			},
+			imageSize = {
+				w: null,
+				h: null
+			}
 
 		link.click(function(){
 			$('.modal').removeClass('show');
-			image = $(this).find('img').attr('src');
-			modal.find('img').attr('src', image);
+			
+			image = $(this).find('img');
+			imageSize.w = image[0].naturalWidth;
+			imageSize.h = image[0].naturalHeight;
+			modal.css({'width': '', 'height': ''});
+			mBody.css({'width': '', 'height': ''});
+
+			imgSrc = image.attr('src');
+
+			modal.find('img').attr('src', imgSrc);
+
+			if($(window).width() > 760){
+				changeDimension(content, imageSize, modal);
+			}
+
 			modal.addClass('show');
 
 			close.click(function(){
@@ -129,6 +152,17 @@ var SandrinyApp = {
 
 			return false;
 		});
+
+		function changeDimension(cont, img, modal) {
+			var indent = 100;
+
+			if(img.w > cont.w && img.h > cont.h) {
+				modal.css('width', cont.w - indent);
+			}
+			if(img.h > cont.h && img.w < cont.w) {
+				modal.css('width', 'auto');
+			}
+		}
 	},
 
 	/* load models when scrolling page */

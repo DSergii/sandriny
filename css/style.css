@@ -119,6 +119,44 @@ fieldset {
 	display:block;
 }
 
+#header.sticky{
+	position: fixed;
+	z-index: 100;
+	background: #fff;
+	opacity: 1;
+	top: 0;
+	-webkit-animation: showStickyHeader .7s infinite ease-in-out;
+    animation: showStickyHeader .7s infinite ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+}
+
+#header.sticky + #content{padding-top: 82px;}
+#header.sticky #nav{opacity: 1 !important;}
+
+@-webkit-keyframes showStickyHeader {
+  0%{
+  	opacity: 0;
+  	top: -86px;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+  
+}
+@keyframes showStickyHeader {
+  0%{
+  	opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
 .mobile-logo{
 	display: none;
 	overflow: hidden;
@@ -756,11 +794,19 @@ h4{
   }
 }
 
+.complete,
 .loading {
 	display: block;
 	color: #222222;
 	line-height: 18px;
 }
+
+.complete {
+	display: none;
+	text-align: center;
+    margin-bottom: 30px;
+}
+.complete.show{display: block;}
 
 .modal{
 	background: #585858;
@@ -1137,12 +1183,7 @@ button[type="submit"]:hover{
 }
 @media (max-width: 720px) {
 	.header-container{padding: 0 15px;}
-	#header{
-		position: fixed;
-		z-index: 10;
-		background: #fff;
-	}
-	#content{padding-top: 82px; }
+
 	#header .logo{
 		float: none;
 		width: 282px;
@@ -1248,28 +1289,28 @@ button[type="submit"]:hover{
 @media (max-width: 425px) {
 
 	.toggle-menu {
-	    width: 38px;
-	    height: 38px;
+	    width: 32px;
+	    height: 32px;
 	}
 
 	.toggle-menu span {
 	    top: 12px;
 	    left: 0;
 	    right: 0;
-	    height: 7px;
+	    height: 6px;
 	}
 
 	.toggle-menu span::before,
 	.toggle-menu span::after {
-	    height: 7px;
+	    height: 6px;
 	}
 
 	.toggle-menu span::before {
-	    top: -12px;
+	    top: -10px;
 	}
 
 	.toggle-menu span::after {
-	    bottom: -12px;
+	    bottom: -10px;
 	}
 	.modal{
 		padding: 15px 15px 15px;
@@ -1325,8 +1366,8 @@ button[type="submit"]:hover{
 
 	.toggle-menu.active{left: 282px;}
 	.toggle-menu {
-	    width: 32px;
-	    height: 32px;
+	    width: 28px;
+	    height: 28px;
 	}
 
 	.toggle-menu span {
@@ -1374,6 +1415,18 @@ button[type="submit"]:hover{
 	.element-form-box .item:last-child label {
 	    margin-bottom: 12px;
 	}
+	.toggle-menu {height: 24px;}
+	.toggle-menu span {
+	    top: 8px;
+	    height: 4px;
+	}
+
+	.toggle-menu span::before,
+	.toggle-menu span::after {height: 4px;}
+
+	.toggle-menu span::before {top: -8px;}
+
+	.toggle-menu span::after {bottom: -8px;}
 	#contact-form .hold-img{
 		margin-bottom: 12px;
 		max-width: 130px;
